@@ -14,8 +14,15 @@ def get_entries_on_file(driver, log_file='links.txt', bib_file='refs.bib'):
     time.sleep(0.1)
     select_all = wait.until(lambda driver: driver.find_element_by_id('gs_res_ab_xall'))
     time.sleep(0.1)
-    select_all.click()
-    time.sleep(0.1)
+    select_all_clicked = False
+    while not select_all_clicked:
+        try:
+            select_all.click()
+            select_all_clicked = True
+            time.sleep(0.1)
+        except:
+            print "could not click on select all. Expand the window to make the button visible"
+            time.sleep(2.0)
     export = wait.until(lambda driver: driver.find_element_by_id('gs_res_ab_exp-b'))
     time.sleep(0.1)
     export.click()
